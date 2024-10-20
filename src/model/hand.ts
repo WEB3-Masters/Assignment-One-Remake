@@ -180,6 +180,7 @@ export class Hand {
       index++
     ) {
       if (this.canPlay(index)) return true;
+
     }
     return false;
   }
@@ -189,12 +190,11 @@ export class Hand {
 
     const card = this._drawPile.deal();
     if (!card) return;
-
+    
     this.playerHand(this._playerInTurn).push(card);
     this.playerUnos[this._playerInTurn] = false;
-
-    // Move to a next player if there is no playable cards
-    if (!this.canPlayAny()) this.nextPlayer();
+    // Move to a next player if there is no playable cards CHANGED to be only if the drawn card is playable
+    if (!this.canPlay(this.playerHand(this._playerInTurn).length-1)) this.nextPlayer();
   }
 
   sayUno(playerIndex: number) {
